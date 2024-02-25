@@ -11,7 +11,7 @@ export default function ProductDetailPage() {
     const productDetails = location.state;
     const [data, setData] = useState([]);
     console.log(productDetails)
-    const {_id,image,title,description,rating,price,category,ratingCount,orgPrice,discountPercentage} = productDetails;
+    const {_id,image,title,description,rating,price,category,ratingCount,orgPrice,discount} = productDetails;
     
     const getData = async () => {
       try {
@@ -58,7 +58,7 @@ export default function ProductDetailPage() {
           <PriceCont>
             <h5>₹ {price}</h5>
             <p>₹{orgPrice}</p>
-            <h6>{discountPercentage}% off</h6>
+            <h6>{discount}% off</h6>
           </PriceCont>
           <p>{description}</p>
           <h4>Category : <span>{category}</span></h4>
@@ -73,15 +73,10 @@ export default function ProductDetailPage() {
       <ProductsCont>
           <ul>
             {similarProductsList.map((product) => {
-              const ratingCount = Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000;
-              const orgPrice = (Math.floor(Math.random() * (5000 - 2000 + 1)) + 2000) + parseInt(product.price)
-              const discountAmount = orgPrice - Number(product.price)
-              const discountPercentage = ((discountAmount / orgPrice) * 100).toFixed(0);
-              const details = {...product,ratingCount,orgPrice,discountPercentage}
               return (
                 <ProductItem key={product.id}>
                   <div className="link-cont"
-                  onClick={() => navigateToDetailPage(details)}>
+                  onClick={() => navigateToDetailPage(product)}>
                     <img src={product.image} alt="not-found" />
                     <h1>{product.title}</h1>
                   </div>
@@ -89,12 +84,12 @@ export default function ProductDetailPage() {
                     <h5>
                       {product.rating} <FaStar />
                     </h5>
-                    <p>({ratingCount})</p>
+                    <p>({product.ratingCount})</p>
                   </SimilarRating>
                   <SimilarPriceCont>
                     <h5>₹ {product.price}</h5>
-                    <p>₹{orgPrice}</p>
-                    <h6>{discountPercentage}% off</h6>
+                    <p>₹{product.orgPrice}</p>
+                    <h6>{product.discount}% off</h6>
                   </SimilarPriceCont>
                 </ProductItem>
               );

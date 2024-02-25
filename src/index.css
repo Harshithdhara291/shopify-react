@@ -1,3 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400..700;1,400..700&family=Mukta:wght@200;300;400;500;600;700;800&display=swap');
+body{
+    font-family: "Mukta", sans-serif !important;
+}
+
 .bg-body-tertiary {
     --bs-bg-opacity: 1;
     background-color: #ffffffb3!important;

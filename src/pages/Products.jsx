@@ -133,29 +133,11 @@ export default function Products() {
         ) : (
           <ul>
             {data.map((product) => {
-              const ratingCount =
-                Math.floor(Math.random() * (5000 - 1000 + 1)) + 1000;
-              const orgPrice =
-                Math.floor(Math.random() * (5000 - 2000 + 1)) +
-                2000 +
-                parseInt(product.price);
-              // console.log(orgPrice,"org price",product.price,"product price")
-              const discountAmount = orgPrice - Number(product.price);
-              const discountPercentage = (
-                (discountAmount / orgPrice) *
-                100
-              ).toFixed(0);
-              const details = {
-                ...product,
-                ratingCount,
-                orgPrice,
-                discountPercentage,
-              };
               return (
                 <ProductItem key={product.id}>
                   <div
                     className="link-cont"
-                    onClick={() => navigateToDetailPage(details)}
+                    onClick={() => navigateToDetailPage(product)}
                   >
                     <img src={product.image} alt="not-found" />
                     <h1>{product.title}</h1>
@@ -166,12 +148,12 @@ export default function Products() {
                     <h5>
                       {product.rating} <FaStar />
                     </h5>
-                    <p>({ratingCount})</p>
+                    <p>({product.ratingCount})</p>
                   </Rating>
                   <PriceCont>
                     <h5>₹ {product.price}</h5>
-                    <p>₹{orgPrice}</p>
-                    <h6>{discountPercentage}% off</h6>
+                    <p>₹{product.orgPrice}</p>
+                    <h6>{product.discount}% off</h6>
                   </PriceCont>
                 </ProductItem>
               );
